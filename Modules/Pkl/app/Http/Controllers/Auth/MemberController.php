@@ -22,6 +22,7 @@ class MemberController extends Controller
 
             session()->put('module_role_id', $getRole->id);
             session()->put('akses_module', $getRole->slug);
+            session()->put('name_module', $getRole->name);
             // session()->put('user_role', 'admin');
             return redirect()->intended('/');
         } else {

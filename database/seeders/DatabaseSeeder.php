@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ConfigAppSeeder::class,
             RoleSeeder::class,
-            // MenuSeeder::class,
+            MenuSeeder::class,
             // TahunAkademikSeeder::class,
             // TingkatSeeder::class,
         ]);

@@ -19,7 +19,7 @@ use Modules\Pkl\Http\Controllers\PklController;
 //     Route::resource('pkl', PklController::class)->names('pkl');
 // });
 
-Route::group(['prefix' => 'pkl', 'middleware' => ['auth','AppMetaPkl']], function () {
+Route::group(['prefix' => 'pkl', 'middleware' => ['auth','MenuRolePkl','AppMetaPkl']], function () {
     Route::get('/', [PklController::class, 'index'])->name('/');
 });
 

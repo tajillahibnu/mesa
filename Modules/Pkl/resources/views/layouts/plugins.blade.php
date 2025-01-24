@@ -22,6 +22,12 @@
 <script src="../../assets/vendor/libs/@form-validation/popular.js"></script>
 <script src="../../assets/vendor/libs/@form-validation/bootstrap5.js"></script>
 <script src="../../assets/vendor/libs/@form-validation/auto-focus.js"></script>
+<script src="{{asset('/')}}assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+<script src="{{asset('/')}}assets/vendor/libs/toastr/toastr.js"></script>
+<script src="{{asset('/')}}assets/vendor/libs/select2/select2.js"></script>
+
 
 <!-- Main JS -->
 <script src="../../assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{asset('/')}}assets/custom/app.js"></script>

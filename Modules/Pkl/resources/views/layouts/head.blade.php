@@ -4,11 +4,16 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>DataTables - Tables | Vuexy - Bootstrap Admin Template</title>
+    <title>{{ config('app.name', 'Laravel') }} - {!! config('pkl.name') !!}</title>
 
-    <meta name="description" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <meta name="description" content="{{ $description ?? '' }}">
+    <meta name="keywords" content="{{ $keywords ?? '' }}">
+    <meta name="author" content="{{ $author ?? '' }}">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
@@ -41,6 +46,9 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/toastr/toastr.css" />
+    <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/select2/select2.css" />
     <!-- Row Group CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
     <!-- Form Validation -->
