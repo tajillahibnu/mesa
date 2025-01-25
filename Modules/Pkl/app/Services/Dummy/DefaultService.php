@@ -1,24 +1,64 @@
 <?php
 
-namespace Modules\Pkl\Services\Management;
+namespace Modules\Pkl\Services\Dummy;
 
+use App\Models\User;
 use App\Services\DataTableService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
-use Modules\Pkl\Repositories\UserRepository;
+use Modules\Pkl\Repositories\BasePklRepository;
+use Modules\Pkl\Repositories\Dummy\DefaultRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PegawaiService
+class DefaultService
 {
+    // Properti untuk menyimpan instance repository yang digunakan
     protected $repository;
 
-    public function __construct(
-        UserRepository $repository,
-    ) {
-        $this->repository = $repository;
+    /**
+     * Constructor 1: Menggunakan repository generik dengan model yang dapat diatur secara dinamis.
+     *
+     * @param BasePklRepository $repository
+     */
+    public function __construct(BasePklRepository $repository)
+    {
+        /**
+         * Constructor ini digunakan jika developer ingin memanfaatkan repository generik
+         * dengan model yang dapat diubah-ubah sesuai kebutuhan.
+         * Contoh: Repository dapat digunakan untuk berbagai model selain User.
+         * Keunggulan: Fleksibilitas tinggi, mempermudah penggunaan ulang kode.
+         * Kekurangan: Membutuhkan penyesuaian model secara manual setiap kali diperlukan.
+         */
+        $this->repository = $repository->setModel(new User());
     }
 
+
+    /**
+     * Constructor 2: Menggunakan repository spesifik yang sudah ditargetkan untuk model tertentu.
+     *
+     * @param DefaultRepository $repository
+     */
+    // public function __construct(
+    //     DefaultRepository $repository,
+    // ) {
+    //     /**
+    //      * Constructor ini digunakan jika developer ingin memanfaatkan repository spesifik
+    //      * (dalam hal ini, `DefaultRepository`) yang sudah ditargetkan untuk model tertentu.
+    //      * Contoh: Repository ini dioptimalkan untuk entitas Dummy/Default.
+    //      * Keunggulan: Kode lebih sederhana, tidak perlu menentukan model secara manual.
+    //      * Kekurangan: Kurang fleksibel jika repository ingin digunakan untuk model lain.
+    //      */
+    //     $this->repository = $repository;
+    // }
+
+
+    /**
+     * Menyiapkan data sebelum disimpan ke dalam database.
+     *
+     * @param array $input Data masukan dari user.
+     * @return array Data yang sudah diproses dan siap disimpan.
+     */
     protected function prepareData(array $input)
     {
         return [
@@ -27,18 +67,18 @@ class PegawaiService
         ];
     }
 
+    /**
+     * Menyimpan data baru ke dalam database.
+     *
+     * @param array $input Data masukan dari user.
+     * @return array Respons hasil penyimpanan.
+     */
     public function store(array $input)
     {
         $response['success'] = false;
         $response['statusCode'] = 200;
         try {
             $dataToSave = $this->prepareData($input);
-            $dataToSave['username'] = $input['email'];
-            $dataToSave['name'] = $input['name'];
-            $dataToSave['email'] = $input['email'];
-            $dataToSave['password'] = 'password';
-            $dataToSave['primary_role_id'] = 3;
-            $dataToSave['is_siswa'] = false;
             $response = $this->repository->create($dataToSave);
             $response['data'] = $input;
         } catch (QueryException $e) {
@@ -48,6 +88,15 @@ class PegawaiService
         return $response;
     }
 
+    /**
+     * Memperbarui data yang sudah ada di database.
+     *
+     * @param int $id ID data yang akan diperbarui.
+     * @param array $input Data masukan dari user.
+     * @return array Respons hasil pembaruan.
+     * @throws NotFoundHttpException Jika data tidak ditemukan.
+     * @throws Exception Jika terjadi kesalahan lain.
+     */
     public function update($id, array $input)
     {
         $response['success'] = false;
@@ -66,6 +115,14 @@ class PegawaiService
         return $response;
     }
 
+    /**
+     * Menghapus data dari database.
+     *
+     * @param int|null $id ID data yang akan dihapus.
+     * @return array Respons hasil penghapusan.
+     * @throws NotFoundHttpException Jika data tidak ditemukan.
+     * @throws Exception Jika terjadi kesalahan lain.
+     */
     public function delete($id = null)
     {
         $response['statusCode'] = 200;
@@ -80,14 +137,19 @@ class PegawaiService
         }
     }
 
+    /**
+     * Menampilkan data dalam bentuk DataTable.
+     *
+     * @return mixed Data dalam format JSON untuk DataTable.
+     */
     public function table()
     {
         return DataTableService::draw('users')
-            ->select(['users.id', 'users.name', 'users.email', 'users.is_active', 'roles.name AS role_name', 'email_verified_at'])
-            ->where('is_siswa', false)
-            ->join('roles', [
-                ['roles.id', '=', 'users.primary_role_id'],
-            ])
+            ->where('is_siswa', true)
+            // ->select(['users.id', 'users.name', 'users.email', 'users.is_active', 'roles.name AS role_name'])
+            // ->join('roles', [
+            //     ['roles.id', '=', 'users.primary_role_id'],
+            // ])
             ->addColumn('status', function ($detail) {
                 $badgeClass = $detail->is_active ? 'bg-label-success' : 'bg-label-danger';
                 $badgeText = $detail->is_active ? 'Active' : 'Inactive';
@@ -101,9 +163,6 @@ class PegawaiService
                     <ul class="dropdown-menu dropdown-menu-end m-0" data-popper-placement="bottom-end">
                         <li>
                             <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="editData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit Account</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="editRoles(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit Roles</a>
                         </li>
                         <div class="dropdown-divider"></div>
                         <li>

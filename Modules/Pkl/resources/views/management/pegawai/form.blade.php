@@ -9,12 +9,17 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12 mb-4">
-                            <label for="name" class="form-label">Nama Lengkap Siswa</label>
+                            <label for="name" class="form-label">Nama Lengkap Pegawai</label>
                             <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" required>
                         </div>
                         <div class="col-12 mb-4">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" id="email" name="email" class="form-control" placeholder="demo@educare.com" required>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label for="email" class="form-label">Roles</label>
+                            <select id="select_roles" name="select_roles" multiple class="select2 form-select" data-placeholder="Select Roles">
+                            </select>
                         </div>
                     </div>
                 </div>

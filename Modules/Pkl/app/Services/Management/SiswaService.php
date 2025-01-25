@@ -102,9 +102,6 @@ class SiswaService
                         <li>
                             <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="editData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit Account</a>
                         </li>
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="editRoles(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit Roles</a>
-                        </li>
                         <div class="dropdown-divider"></div>
                         <li>
                             <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="deleteData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Delete</a>

@@ -1,29 +1,36 @@
 <?php
 
-namespace Modules\Pkl\Services\Management;
+namespace Modules\Pkl\Services\Master;
 
+use App\Models\Dudi;
 use App\Services\DataTableService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
-use Modules\Pkl\Repositories\UserRepository;
+use Modules\Pkl\Repositories\BasePklRepository;
+use Modules\Pkl\Repositories\DudiRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PegawaiService
+class DudiService
 {
     protected $repository;
 
-    public function __construct(
-        UserRepository $repository,
-    ) {
-        $this->repository = $repository;
+    public function __construct(BasePklRepository $repository)
+    {
+        /**
+         * Memangil Model yang digunakan di repository
+         */
+        $this->repository = $repository->setModel(new Dudi());
     }
+
 
     protected function prepareData(array $input)
     {
         return [
             'name' => $input['name'] ?? null,
             'email' => $input['email'] ?? null,
+            'phone' => $input['phone'] ?? null,
+            'address' => $input['address'] ?? null,
         ];
     }
 
@@ -33,12 +40,6 @@ class PegawaiService
         $response['statusCode'] = 200;
         try {
             $dataToSave = $this->prepareData($input);
-            $dataToSave['username'] = $input['email'];
-            $dataToSave['name'] = $input['name'];
-            $dataToSave['email'] = $input['email'];
-            $dataToSave['password'] = 'password';
-            $dataToSave['primary_role_id'] = 3;
-            $dataToSave['is_siswa'] = false;
             $response = $this->repository->create($dataToSave);
             $response['data'] = $input;
         } catch (QueryException $e) {
@@ -82,12 +83,8 @@ class PegawaiService
 
     public function table()
     {
-        return DataTableService::draw('users')
-            ->select(['users.id', 'users.name', 'users.email', 'users.is_active', 'roles.name AS role_name', 'email_verified_at'])
-            ->where('is_siswa', false)
-            ->join('roles', [
-                ['roles.id', '=', 'users.primary_role_id'],
-            ])
+        return DataTableService::draw('dudis')
+            ->where('deleted_at', null)
             ->addColumn('status', function ($detail) {
                 $badgeClass = $detail->is_active ? 'bg-label-success' : 'bg-label-danger';
                 $badgeText = $detail->is_active ? 'Active' : 'Inactive';
@@ -100,10 +97,7 @@ class PegawaiService
                     <a href="javascript:void(0);" class="btn btn-sm rounded-pill btn-icon dropdown-toggle hide-arrow show" data-bs-toggle="dropdown" aria-expanded="true"><i class="ti ti-dots-vertical ti-md"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end m-0" data-popper-placement="bottom-end">
                         <li>
-                            <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="editData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit Account</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="editRoles(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit Roles</a>
+                            <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="editData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit</a>
                         </li>
                         <div class="dropdown-divider"></div>
                         <li>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Traits\ApiResponseTrait;
 use Exception;
 use Illuminate\Http\Request;
+use Modules\Pkl\Http\Requests\Management\PegawaiRequest;
 use Modules\Pkl\Services\Management\PegawaiService;
 
 class PegawaiController extends Controller
@@ -17,7 +18,7 @@ class PegawaiController extends Controller
         $this->mainServices = $mainServices;
     }
 
-    public function store(Request $request)
+    public function store(PegawaiRequest $request)
     {
         try {
             $aArrStore = $this->mainServices->store($request->input());
@@ -28,7 +29,7 @@ class PegawaiController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(PegawaiRequest $request, $id)
     {
         try {
             $aArrUpdate = $this->mainServices->update($id, $request->input());

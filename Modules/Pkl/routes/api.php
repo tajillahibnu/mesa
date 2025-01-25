@@ -33,8 +33,8 @@ Route::group(['prefix' => 'pkl', 'middleware' => ['web', 'auth']], function () {
         require_once(__DIR__ . '/api/management/manpeg.php');
     });
 
-    // Route::group(['prefix' => 'master'], function () {
-    //     require_once(__DIR__ . '/api/master/Dudi.php');
-    //     require_once(__DIR__ . '/api/master/Tahun.php');
-    // });
+    Route::group(['prefix' => 'master'], function () {
+        require_once(__DIR__ . '/api/master/Dudi.php');
+        // require_once(__DIR__ . '/api/master/Tahun.php');
+    });
 });

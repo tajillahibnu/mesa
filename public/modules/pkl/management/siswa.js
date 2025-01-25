@@ -105,7 +105,7 @@ onSaveIt = (name) => {
     }).then(data => {
         APP.reloadTable();
         $('#mainModal').modal('hide');
-        APP.notif({
+        APP.showToast({
             type: data.status,
             message: data.message,
         });

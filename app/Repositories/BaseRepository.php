@@ -16,9 +16,22 @@ abstract class BaseRepository
      *
      * @param Model $model
      */
-    public function __construct(Model $model)
+    public function __construct(Model $model = null)
+    {
+        if (! $model instanceof Model) {
+            throw new \InvalidArgumentException("The provided argument is not a valid model.");
+        }
+
+        $this->model = $model;
+    }
+
+    /**
+     * Set model secara dinamis.
+     */
+    public function setModel(Model $model)
     {
         $this->model = $model;
+        return $this; // Mengembalikan instance untuk chaining
     }
 
     /**
@@ -65,15 +78,12 @@ abstract class BaseRepository
     /**
      * Perbarui data berdasarkan ID
      *
-     * @param mixed $id
      * @param array $data
+     * @param mixed $identifier
      * @return Model
      */
     public function update(array $data, $identifier = null)
     {
-        // $instance = $this->find($id);
-        // $instance->update($data);
-        // return $instance;
         $query = $this->model->newQuery();
 
         if ($identifier !== null) {
@@ -95,13 +105,11 @@ abstract class BaseRepository
     /**
      * Hapus data berdasarkan ID
      *
-     * @param mixed $id
+     * @param mixed $identifier
      * @return bool|null
      */
     public function delete($identifier)
     {
-        //     $instance = $this->find($id);
-        //     return $instance->delete();
         $query = $this->model->newQuery();
 
         if (is_array($identifier)) {
@@ -112,7 +120,6 @@ abstract class BaseRepository
         }
 
         $instance = $this->find($identifier);
-
         return $instance->delete();
     }
 }

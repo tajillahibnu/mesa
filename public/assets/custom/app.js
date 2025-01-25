@@ -49,11 +49,11 @@ var APP = ((config) => {
                 } else {
                     // Untuk status error lainnya, tampilkan pesan error default
                     const message = error.response.data.message || "Terjadi kesalahan, silakan coba lagi.";
-                    // toastr.error(message, `Error ${status}`);
-                    APP.notif({
-                        type: 'danger',
-                        message: message,
-                    });
+                    toastr.error(message, `Error ${status}`);
+                    // APP.notif({
+                    //     type: 'danger',
+                    //     message: message,
+                    // });
                 }
             } else {
                 // Untuk error tanpa response dari server
@@ -64,6 +64,12 @@ var APP = ((config) => {
     );
 
     return {
+        block : () => {
+            $('#block-loader').show();
+        },
+        unblock : () =>{
+            $('#block-loader').hide();
+        },
         decodeEntities: (encodedString) => {
             var textArea = document.createElement('textarea');
             textArea.innerHTML = encodedString;
@@ -307,7 +313,7 @@ var APP = ((config) => {
             }, config);
 
             config.el.forEach(selector => {
-                $(selector).empty().append('<option selected="" disabled="" value="">Choose...</option>');
+                $(selector).empty().append('<option disabled="" value="">Choose...</option>');
             });
 
             APP.axiosRequest({

@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Modules\Panel\Http\Controllers\Master\DudiController;
+use Modules\Pkl\Http\Controllers\Master\DudiController;
 
 /*
     |--------------------------------------------------------------------------
