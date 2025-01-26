@@ -9,7 +9,7 @@ This project is a modular Laravel application designed for school management. It
 
 - PHP >= 8.1
 - Composer
-- Laravel >= 11.x
+- Laravel >= 10.x
 - MySQL or other supported database
 
 ---
@@ -62,6 +62,13 @@ php artisan make:model Tingkat -m -s
 - `-m`: Generates a migration file.
 - `-s`: Generates a seeder file.
 
+### Create a Factory
+To create a factory:
+```bash
+php artisan make:factory PostFactory
+```
+This command generates a factory class for seeding your models.
+
 ### Recreate Database with Seeders
 To reset the database and run seeders:
 ```bash
@@ -77,34 +84,34 @@ This command drops all tables, recreates them, and seeds the database with initi
 ### Create a Request
 To create a request in a specific module:
 ```bash
-php artisan module:make-request Master/TahunRequest pkl
+php artisan module:make-request Management/PegawaiRequest pkl
 ```
-- `Master/TahunRequest`: The location and name of the request class.
+- `Management/PegawaiRequest`: The location and name of the request class.
 - `pkl`: The name of the module.
 
 ### Create a Controller
 To create a controller in a specific module:
 ```bash
-php artisan module:make-controller Master/TahunController Pkl
+php artisan module:make-controller Master/TahunController pkl
 ```
 - `Master/TahunController`: The location and name of the controller.
-- `Pkl`: The name of the module.
+- `pkl`: The name of the module.
 
 ### Create a Service
 To create a service in a specific module:
 ```bash
-php artisan module:make-service Master/TahunService Pkl
+php artisan module:make-service Master/TahunService pkl
 ```
 - `Master/TahunService`: The location and name of the service class.
-- `Pkl`: The name of the module.
+- `pkl`: The name of the module.
 
 ### Create a Repository
 To create a repository in a specific module:
 ```bash
-php artisan module:make-repository TahunRepository Pkl
+php artisan module:make-repository TahunRepository pkl
 ```
 - `TahunRepository`: The name of the repository.
-- `Pkl`: The name of the module.
+- `pkl`: The name of the module.
 
 ---
 
@@ -114,7 +121,7 @@ The project uses a modular approach. Below is the general directory structure:
 ```
 app/
   Modules/
-    Pkl/
+    pkl/
       Controllers/
       Models/
       Repositories/
@@ -128,3 +135,4 @@ config/
 routes/
   api.php
   web.php
+```
