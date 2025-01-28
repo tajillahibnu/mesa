@@ -39,6 +39,7 @@ class DudiController extends Controller
             throw new Exception('Internal server malfunction.');
         }
     }
+    
 
     public function delete(Request $request)
     {
@@ -51,6 +52,28 @@ class DudiController extends Controller
             throw new Exception('Internal server malfunction.');
         }
     }
+
+    /**
+     * Memperbarui data berdasarkan ID.
+     *
+     * @param Request $request Data permintaan yang berisi input untuk diperbarui.
+     * @param int $id ID dari data yang akan diperbarui.
+     * @return \Illuminate\Http\JsonResponse Response API dengan status operasi.
+     * @throws Exception Jika terjadi kesalahan server.
+     */
+    public function status(Request $request)
+    {
+        try {
+            $id = $request->input('id');
+            $aArrInput = $request->input('data');
+            $aArrUpdate = $this->mainServices->status($id, $aArrInput);
+            return $this->apiResponse($aArrUpdate)
+                ->send();
+        } catch (\Throwable $th) {
+            throw new Exception('Internal server malfunction.');
+        }
+    }
+
 
     public function mainTable()
     {

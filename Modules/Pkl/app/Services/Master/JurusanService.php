@@ -178,11 +178,11 @@ class JurusanService
         return DataTableService::draw('jurusans')
             ->where('deleted_at', null)
             ->addColumn('status', function ($detail) {
-                $badgeText = $detail->is_active ? 'checked' : '';
                 // $badgeClass = $detail->is_active ? 'bg-label-success' : 'bg-label-danger';
                 // $badgeText = $detail->is_active ? 'Active' : 'Inactive';
-
+                
                 // return '<span class="badge  ' . $badgeClass . '">' . $badgeText . '</span>';
+                $badgeText = $detail->is_active ? 'checked' : '';
                 return '
                         <div class="w-75 d-flex justify-content-end">
                             <div class="form-check form-switch me-n3">

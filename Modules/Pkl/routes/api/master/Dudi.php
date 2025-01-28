@@ -25,4 +25,5 @@ Route::group(['prefix' => 'dudi', 'middleware' => ['web', 'auth']], function () 
     Route::post('store', [DudiController::class, 'store'])->name('store');
     Route::post('update/{id}', [DudiController::class, 'update'])->name('update');
     Route::post('delete', [DudiController::class, 'delete'])->name('delete');
+    Route::post('status', [DudiController::class, 'status'])->name('status');
 });

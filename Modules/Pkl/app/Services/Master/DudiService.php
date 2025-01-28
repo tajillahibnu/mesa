@@ -81,15 +81,54 @@ class DudiService
         }
     }
 
+
+    /**
+     * Memperbarui data yang sudah ada di database.
+     *
+     * @param int $id ID data yang akan diperbarui.
+     * @param array $input Data masukan dari user.
+     * @return array Respons hasil pembaruan.
+     * @throws NotFoundHttpException Jika data tidak ditemukan.
+     * @throws Exception Jika terjadi kesalahan lain.
+     */
+    public function status($id, array $input)
+    {
+        $response['success'] = false;
+        $response['statusCode'] = 200;
+        try {
+            $dataToUpdate['is_active'] = !$input['is_active']?? true;
+            // print_r($dataToUpdate);
+            // exit;
+            $response['data'] = $this->repository->update($dataToUpdate, $id);
+        } catch (NotFoundHttpException $e) {
+            $response['message'] = "Item with ID $id not found for update";
+            throw new NotFoundHttpException($response['message']);
+        } catch (Exception $e) {
+            $response['message'] = $e->getMessage();
+            Log::error("Error updating : " . $response['message']);
+            throw new Exception("Failed to update item", 500);
+        }
+        return $response;
+    }
+
     public function table()
     {
         return DataTableService::draw('dudis')
             ->where('deleted_at', null)
             ->addColumn('status', function ($detail) {
-                $badgeClass = $detail->is_active ? 'bg-label-success' : 'bg-label-danger';
-                $badgeText = $detail->is_active ? 'Active' : 'Inactive';
-
-                return '<span class="badge  ' . $badgeClass . '">' . $badgeText . '</span>';
+                // $badgeClass = $detail->is_active ? 'bg-label-success' : 'bg-label-danger';
+                // $badgeText = $detail->is_active ? 'Active' : 'Inactive';
+                
+                // return '<span class="badge  ' . $badgeClass . '">' . $badgeText . '</span>';
+                
+                $badgeText = $detail->is_active ? 'checked' : '';
+                return '
+                        <div class="w-75 d-flex justify-content-end">
+                            <div class="form-check form-switch me-n3">
+                            <input type="checkbox" class="form-check-input" name="'.$detail->id.'" data-params="' . base64_encode(json_encode($detail)) . '" onchange="setActive(this)" '.$badgeText.'>
+                            </div>
+                        </div>
+                ';
             })
             ->addColumn('action', function ($detail) {
                 return '

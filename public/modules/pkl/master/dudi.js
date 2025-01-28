@@ -94,6 +94,38 @@ onSaveIt = (name) => {
     });
 }
 
+setActive = (el) => {
+    var data = $(el).data('params')
+    data = JSON.parse(atob(data));
+    targetID = data['id'];
+    APP.confirm({
+        title: 'Are you sure?',
+        text: 'Are you sure you want to change the status of this item?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Changes Status!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            APP.axiosRequest({
+                url: `${BASE_API_MENU}/status`,
+                data: {
+                    id: targetID,
+                    data : data
+                },
+            }).then(data => {
+                APP.reloadTable();
+                APP.showToast({
+                    type: data.status,
+                    message: data.message,
+                });
+            }).catch(error => {
+                console.error("Fetch error:", error);
+            });
+        }
+    });
+}
+
 deleteData = (el) => {
     var data = $(el).data('params')
     data = JSON.parse(atob(data));
@@ -123,5 +155,4 @@ deleteData = (el) => {
             });
         }
     });
-
 }
