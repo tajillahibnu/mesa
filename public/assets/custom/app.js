@@ -203,9 +203,9 @@ var APP = ((config) => {
                 fnRowCallback: (row, data, index) => {
                     // Tambahkan kolom dengan nilai default jika data kosong
                     $(row).find('td').each(function () {
-                        if (!$(this).text().trim()) {
-                            $(this).text('-');
-                        }
+                        // if (!$(this).text().trim()) {
+                        //     $(this).text('-');
+                        // }
                     });
                 },
                 drawCallback: () => {

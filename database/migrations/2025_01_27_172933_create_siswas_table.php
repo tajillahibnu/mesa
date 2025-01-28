@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama', 100);
             $table->date('tanggal_lahir');
             $table->string('jenis_kelamin', 10);
-            $table->foreignId('rombel_id')->constrained('rombel')->onDelete('cascade'); // Relasi ke tabel Rombel
+            // $table->foreignId('rombel_id')->constrained('rombel')->onDelete('cascade'); // Relasi ke tabel Rombel
             $table->string('alamat')->nullable();
             $table->string('telepon', 15)->nullable();
             $table->timestamps();

@@ -22,9 +22,8 @@ class DatabaseSeeder extends Seeder
             ConfigAppSeeder::class,
             RoleSeeder::class,
             MenuSeeder::class,
+            JurusanSeeder::class,
         ]);
-
-        Jurusan::factory()->count(5)->create();
 
         $this->create_user();
         

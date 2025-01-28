@@ -10,8 +10,6 @@ class Rombel extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $table = 'rombel';
-
     protected $fillable = [
         'kode_rombel',
         'nama_rombel',

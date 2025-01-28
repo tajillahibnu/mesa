@@ -12,7 +12,10 @@ class Jurusan extends Model
 
     protected $fillable = [
         'kode',
-        'nama',
+        'name',
         'deskripsi',
+        'bidang_keahlian',
+        'program_keahlian',
+        'is_active',
     ];
 }

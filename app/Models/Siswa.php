@@ -15,13 +15,13 @@ class Siswa extends Model
         'nama',
         'tanggal_lahir',
         'jenis_kelamin',
-        'rombel_id',
+        // 'rombel_id',
         'alamat',
         'telepon',
     ];
 
-    public function rombel()
-    {
-        return $this->belongsTo(Rombel::class);
-    }
+    // public function rombel()
+    // {
+    //     return $this->belongsTo(Rombel::class);
+    // }
 }

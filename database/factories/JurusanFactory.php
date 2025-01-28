@@ -18,8 +18,9 @@ class JurusanFactory extends Factory
     {
         return [
             'kode' => strtoupper($this->faker->unique()->lexify('?????')), // Random 5-character code
-            'nama' => $this->faker->words(3, true), // Random name with 3 words
+            'name' => $this->faker->words(3, true), // Random name with 3 words
             'deskripsi' => $this->faker->optional()->paragraph(),
+            'is_active' => true,
         ];
     }
 }

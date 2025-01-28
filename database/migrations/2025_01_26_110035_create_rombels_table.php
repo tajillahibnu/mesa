@@ -24,7 +24,7 @@ return new class extends Migration
 
             // Foreign key constraints
             $table->foreign('walikelas_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('jurusan_id')->references('id')->on('jurusan')->onDelete('cascade');
+            // $table->foreign('jurusan_id')->references('id')->on('jurusans')->onDelete('cascade');
         });
     }
 

@@ -9,22 +9,23 @@
             class="img-fluid" />
     </div>
 </div>
-<!-- <div class="card">
+<!-- 
+<div class="card">
+    <div class="card-header border-bottom">
+        <h5 class="card-tile mb-0">Daftar (DU&DI)</h5>
+    </div>
     <div class="card-datatable table-responsive pt-0">
         <table id="maintable" class="datatables-basic table">
             <thead>
                 <tr>
                     <th></th>
-                    <th></th>
-                    <th>id</th>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Date</th>
-                    <th>Salary</th>
+                    <th>Phone</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
         </table>
     </div>
-</div> -->
+</div>
+-->

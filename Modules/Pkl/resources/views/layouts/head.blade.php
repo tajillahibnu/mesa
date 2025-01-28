@@ -65,4 +65,9 @@
 
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    <style>
+        table.dataTable .form-check-input {
+            width: 30px;
+        }
+    </style>
 </head>
