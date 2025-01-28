@@ -15,6 +15,7 @@ class MenuSeeder extends Seeder
         $no = 1;
         $aArrMenu = [
             'dashboard',
+            'data',
             'master',
             'management',
             'setting',
@@ -44,6 +45,49 @@ class MenuSeeder extends Seeder
         Menu::create($save);
     }
 
+    
+
+    private function data($id,$menuNumber){
+        $dd = $id;
+        $save['id']    = $id;
+        $save['name']  = 'Data';
+        $save['title']  = 'Data';
+        $save['slug']   = 'data';
+        $save['url']   = 'data';
+        $save['level'] = '0';
+        $save['type']  = 'main';
+        $save['menu_order'] = $menuNumber;
+        Menu::create($save);
+
+        $dd = $dd + 1;
+        $save['id']         = $id.$dd;
+        $save['parent_id']  = $id;
+        $save['title']      = 'Pegawai';
+        $save['name']       = 'Pegawai';
+        $save['slug']       = 'dapeg';
+        $save['url']        = 'data/dapeg';
+        $save['level']      = '1';
+        $save['type']       = 'main';
+        $save['menu_order'] = $dd;
+        $save['view_path']      = 'data/pegawai/';
+        $save['view_file']      = 'default';
+        Menu::create($save);
+
+        $dd = $dd + 1;
+        $save['id']         = $id.$dd;
+        $save['parent_id']  = $id;
+        $save['title']      = 'Siswa';
+        $save['name']       = 'Siswa';
+        $save['slug']       = 'dasi';
+        $save['url']        = 'data/dasi';
+        $save['level']      = '1';
+        $save['type']       = 'main';
+        $save['menu_order'] = $dd;
+        $save['view_path']      = 'data/siswa/';
+        $save['view_file']      = 'default';
+        Menu::create($save);
+    }
+
     private function master($id,$menuNumber){
         $dd = $id;
         $save['id']    = $id;
@@ -67,6 +111,20 @@ class MenuSeeder extends Seeder
         $save['type']       = 'main';
         $save['menu_order'] = $dd;
         $save['view_path']      = 'master/dudi/';
+        $save['view_file']      = 'default';
+        Menu::create($save);
+
+        $dd = $dd + 1;
+        $save['id']         = $id.$dd;
+        $save['parent_id']  = $id;
+        $save['title']      = 'Jurusan';
+        $save['name']       = 'Jurusan';
+        $save['slug']       = 'masju';
+        $save['url']        = 'master/jurusan';
+        $save['level']      = '1';
+        $save['type']       = 'main';
+        $save['menu_order'] = $dd;
+        $save['view_path']      = 'master/kurikulum/jurusan/';
         $save['view_file']      = 'default';
         Menu::create($save);
 
