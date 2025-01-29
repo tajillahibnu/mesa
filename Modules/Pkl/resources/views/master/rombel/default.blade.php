@@ -8,7 +8,7 @@
                 <tr>
                     <th></th>
                     <th>Name</th>
-                    <th>Phone</th>
+                    <th>Kapasitas</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -16,4 +16,4 @@
         </table>
     </div>
 </div>
-@include('pkl::master.dudi.form')
+@include('pkl::master.rombel.form')

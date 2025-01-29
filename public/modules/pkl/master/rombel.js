@@ -1,6 +1,7 @@
 var targetID = '';
 $(() => {
     mainTable();
+    combo()
 })
 
 mainTable = () => {
@@ -14,7 +15,7 @@ mainTable = () => {
             <"dt-action-buttons d-flex justify-content-center flex-md-row align-items-baseline"B>>>t
         <"row mx-1"<"col-sm-12 col-md-6 d-flex align-items-center length-menu-no-margin"li><"col-sm-12 col-md-6"p>>`,
         buttons: [{
-            text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Tambah Dudi</span>',
+            text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Kelas</span>',
             className: "add-new btn btn-primary ms-2 waves-effect waves-light",
             action: function (e, dt, node, config) {
                 newData()
@@ -25,14 +26,14 @@ mainTable = () => {
                 targets: 1,
                 data: 'name',
                 render: function (data, type, full, meta) {
-                    return full['name'];
+                    return `${full['name']}`;
                 },
             },
             {
                 targets: 2,
-                data: 'phone',
+                width: "50px", // Mengatur lebar kolom nomor urut
                 render: function (data, type, full, meta) {
-                    return full['phone'];
+                    return full['kapasitas'] + ' Siswa';
                 },
             },
             {
@@ -43,7 +44,7 @@ mainTable = () => {
                 },
             },
             {
-                targets: 4,
+                targets: -1,
                 width: "50px", // Mengatur lebar kolom nomor urut
                 // data: 'name',
                 render: function (data, type, full, meta) {
@@ -124,4 +125,55 @@ deleteData = (el) => {
         }
     });
 
+}
+
+setActive = (el) => {
+    var data = $(el).data('params')
+    data = JSON.parse(atob(data));
+    targetID = data['id'];
+    APP.confirm({
+        title: 'Are you sure?',
+        text: 'Are you sure you want to change the status of this item?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Changes Status!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            APP.axiosRequest({
+                url: `${BASE_API_MENU}/status`,
+                data: {
+                    id: targetID,
+                    data : data
+                },
+            }).then(data => {
+                APP.reloadTable();
+                APP.showToast({
+                    type: data.status,
+                    message: data.message,
+                });
+            }).catch(error => {
+                console.error("Fetch error:", error);
+            });
+        }
+    });
+}
+
+combo = () =>{
+    APP.combov1({
+        el: ['#tingkat_id'],
+        url: `${BASE_API_MENU}/combo/tingkat`,
+        fild_id: 'id',
+        fild_name: 'name',
+        select2:true,
+        dropdownParent: '#mainModal',
+    })
+    APP.combov1({
+        el: ['#jurusan_id'],
+        url: `${BASE_API_MENU}/combo/jurusan`,
+        fild_id: 'id',
+        fild_name: 'name',
+        select2:true,
+        dropdownParent: '#mainModal',
+    })
 }

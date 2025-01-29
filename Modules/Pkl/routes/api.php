@@ -36,5 +36,6 @@ Route::group(['prefix' => 'pkl', 'middleware' => ['web', 'auth']], function () {
     Route::group(['prefix' => 'master'], function () {
         require_once(__DIR__ . '/api/master/Dudi.php');
         require_once(__DIR__ . '/api/master/Jurusan.php');
+        require_once(__DIR__ . '/api/master/Rombel.php');
     });
 });

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Jurusan;
 use App\Models\Role;
+use App\Models\Rombel;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,12 +23,13 @@ class DatabaseSeeder extends Seeder
             ConfigAppSeeder::class,
             RoleSeeder::class,
             MenuSeeder::class,
-            JurusanSeeder::class,
         ]);
-
+        
         $this->create_user();
         
         $this->call([
+            JurusanSeeder::class,
+            RombelSeeder::class,
             DudiSeeder::class,
         ]);
         // User::factory()->create([

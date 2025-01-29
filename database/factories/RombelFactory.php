@@ -17,12 +17,13 @@ class RombelFactory extends Factory
     public function definition(): array
     {
         return [
-            'kode_rombel' => $this->faker->unique()->bothify('ROM-###'),
-            'nama_rombel' => $this->faker->word(),
-            'walikelas_id' => 1, // Update sesuai kebutuhan relasi
-            'jurusan_id' => 1, // Update sesuai kebutuhan relasi
-            'tingkat' => $this->faker->numberBetween(10, 12),
-            'kapasitas' => $this->faker->numberBetween(20, 40),
+            'kode' => $this->faker->unique()->bothify('ROM-###'),
+            // 'name' => $this->faker->randomElement(['TKJ', 'RPL', 'TKR']),
+            // 'walikelas_id' => 1, // Update sesuai kebutuhan relasi
+            // 'jurusan_id' => 1, // Update sesuai kebutuhan relasi
+            // 'tingkat' => $this->faker->numberBetween(10, 12),
+            // 'tingkat' => $this->faker->numberBetween(10, 12),
+            'kapasitas' => $this->faker->numberBetween(29, 33),
             'tahun_ajaran' => '2024/2025',
         ];
 
