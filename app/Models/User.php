@@ -24,7 +24,8 @@ class User extends Authenticatable
         'password',
         'primary_role_id',
         'is_siswa',
-        'is_active'
+        'is_active',
+        'biodata_id'
     ];
 
     /**

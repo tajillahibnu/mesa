@@ -13,15 +13,18 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->string('nip', 20)->unique()->nullable(); // Nomor Induk Pegawai (opsional untuk karyawan non-guru)
-            $table->string('nama', 100);
-            $table->string('jenis_kelamin', 10);
-            $table->string('jabatan', 50); // Jabatan, misalnya: Guru, TU, dll.
-            $table->string('departemen', 100)->nullable(); // Departemen atau bidang kerja
+            // $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->string('nip', 18)->unique()->nullable(); // Nomor Induk Pegawai (opsional untuk karyawan non-guru)
+            $table->string('nik', 16)->unique()->nullable(); // Nomor Induk Kependudukan
+            $table->string('name', 150);
+            $table->enum('jk', ['P', 'L']);
             $table->string('telepon', 15)->nullable();
             $table->text('alamat')->nullable();
             $table->date('tanggal_lahir');
             $table->string('email', 100)->unique();
+            $table->enum('status_kepegawaian', ['PNS', 'Honorer'])->default('PNS');
+            $table->enum('jabatan', ['Guru', 'Staff TU','Staff', 'Kepala Sekolah', 'Wakil Kepala'])->default('Guru');
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

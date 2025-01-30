@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ConfigAppSeeder::class,
             RoleSeeder::class,
             MenuSeeder::class,
+            PegawaiSeeder::class,
         ]);
         
         $this->create_user();
@@ -69,31 +70,31 @@ class DatabaseSeeder extends Seeder
         User::factory()->siswa()->count(10)->create();
 
         // Buat karyawan
-        User::factory()->karyawan()->count(10)->create();
+        // User::factory()->karyawan()->count(10)->create();
 
 
-        // Buat 10 user karyawan
-        $users = User::factory()->karyawan()->count(5)->create();
-        // Definisikan role yang dibutuhkan
-        $roles = [
-            'staff_tu',
-            'guru',
-        ];
-        // Buat atau ambil role, lalu attach ke setiap user
-        $roleIds = Role::whereIn('slug', $roles)
-            ->pluck('id')
-            ->all();
+        // // Buat 10 user karyawan
+        // $users = User::factory()->karyawan()->count(5)->create();
+        // // Definisikan role yang dibutuhkan
+        // $roles = [
+        //     'staff_tu',
+        //     'guru',
+        // ];
+        // // Buat atau ambil role, lalu attach ke setiap user
+        // $roleIds = Role::whereIn('slug', $roles)
+        //     ->pluck('id')
+        //     ->all();
 
-        $users->each(function ($user) use ($roleIds) {
-            $rolesWithPivot = [];
+        // $users->each(function ($user) use ($roleIds) {
+        //     $rolesWithPivot = [];
 
-            foreach ($roleIds as $roleId) {
-                $rolesWithPivot[$roleId] = [
-                    'is_primary' => $user->primary_role_id == $roleId,
-                ];
-            }
+        //     foreach ($roleIds as $roleId) {
+        //         $rolesWithPivot[$roleId] = [
+        //             'is_primary' => $user->primary_role_id == $roleId,
+        //         ];
+        //     }
 
-            $user->roles()->attach($rolesWithPivot);
-        });
+        //     $user->roles()->attach($rolesWithPivot);
+        // });
     }
 }

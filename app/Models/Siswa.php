@@ -14,7 +14,7 @@ class Siswa extends Model
         'nis',
         'nama',
         'tanggal_lahir',
-        'jenis_kelamin',
+        'jk',
         // 'rombel_id',
         'alamat',
         'telepon',

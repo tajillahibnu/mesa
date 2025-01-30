@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
-            $table->string('nis', 20)->unique(); // Nomor Induk Siswa
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->string('nis', 20)->unique()->nullable(); // Nomor Induk Siswa
             $table->string('nama', 100);
-            $table->date('tanggal_lahir');
-            $table->string('jenis_kelamin', 10);
+            $table->date('tanggal_lahir')->nullable();
+            $table->enum('jk', ['P', 'L']);
             // $table->foreignId('rombel_id')->constrained('rombel')->onDelete('cascade'); // Relasi ke tabel Rombel
             $table->string('alamat')->nullable();
             $table->string('telepon', 15)->nullable();

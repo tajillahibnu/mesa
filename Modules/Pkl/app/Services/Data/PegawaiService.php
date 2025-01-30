@@ -1,17 +1,17 @@
 <?php
 
-namespace Modules\Pkl\Services\Dummy;
+namespace Modules\Pkl\Services\Data;
 
-use App\Models\User;
+use App\Models\Pegawai;
 use App\Services\DataTableService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 use Modules\Pkl\Repositories\BasePklRepository;
-use Modules\Pkl\Repositories\Dummy\DefaultRepository;
+use Modules\Pkl\Repositories\PegawaiRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class DefaultService
+class PegawaiService
 {
     // Properti untuk menyimpan instance repository yang digunakan
     protected $repository;
@@ -21,8 +21,9 @@ class DefaultService
      *
      * @param BasePklRepository $repository
      */
-    public function __construct(BasePklRepository $repository)
+    public function __construct(PegawaiRepository $repository)
     {
+        $this->repository = $repository;
         /**
          * Constructor ini digunakan jika developer ingin memanfaatkan repository generik
          * dengan model yang dapat diubah-ubah sesuai kebutuhan.
@@ -30,28 +31,8 @@ class DefaultService
          * Keunggulan: Fleksibilitas tinggi, mempermudah penggunaan ulang kode.
          * Kekurangan: Membutuhkan penyesuaian model secara manual setiap kali diperlukan.
          */
-        $this->repository = $repository->setModel(new User());
+        // $this->repository = $repository->setModel(new Pegawai());
     }
-
-
-    /**
-     * Constructor 2: Menggunakan repository spesifik yang sudah ditargetkan untuk model tertentu.
-     *
-     * @param DefaultRepository $repository
-     */
-    // public function __construct(
-    //     DefaultRepository $repository,
-    // ) {
-    //     /**
-    //      * Constructor ini digunakan jika developer ingin memanfaatkan repository spesifik
-    //      * (dalam hal ini, `DefaultRepository`) yang sudah ditargetkan untuk model tertentu.
-    //      * Contoh: Repository ini dioptimalkan untuk entitas Dummy/Default.
-    //      * Keunggulan: Kode lebih sederhana, tidak perlu menentukan model secara manual.
-    //      * Kekurangan: Kurang fleksibel jika repository ingin digunakan untuk model lain.
-    //      */
-    //     $this->repository = $repository;
-    // }
-
 
     /**
      * Menyiapkan data sebelum disimpan ke dalam database.
@@ -64,6 +45,8 @@ class DefaultService
         return [
             'name' => $input['name'] ?? null,
             'email' => $input['email'] ?? null,
+            'tanggal_lahir' => $input['tanggal_lahir'] ?? '1992-01-01',
+            'alamat' => $input['alamat'] ?? null,
         ];
     }
 
@@ -79,7 +62,10 @@ class DefaultService
         $response['statusCode'] = 200;
         try {
             $dataToSave = $this->prepareData($input);
-            $response = $this->repository->create($dataToSave);
+
+            $response = $this->repository->createPegawai($dataToSave);
+            // dd($response->id);
+            // exit;
             $response['data'] = $input;
         } catch (QueryException $e) {
             $response['statusCode'] = 400;
@@ -110,7 +96,7 @@ class DefaultService
         } catch (Exception $e) {
             $response['message'] = $e->getMessage();
             Log::error("Error updating : " . $response['message']);
-            throw new Exception("Failed to update item ". $response['message'], 500);
+            throw new Exception("Failed to update item". $response['message'], 500);
         }
         return $response;
     }
@@ -130,7 +116,7 @@ class DefaultService
         } catch (Exception $e) {
             $response['message'] = $e->getMessage();
             Log::error("Error updating : " . $response['message']);
-            throw new Exception("Failed to update item ". $response['message'], 500);
+            throw new Exception("Failed to update item". $response['message'], 500);
         }
         return $response;
     }
@@ -164,12 +150,8 @@ class DefaultService
      */
     public function table()
     {
-        return DataTableService::draw('users')
-            ->where('is_siswa', true)
-            // ->select(['users.id', 'users.name', 'users.email', 'users.is_active', 'roles.name AS role_name'])
-            // ->join('roles', [
-            //     ['roles.id', '=', 'users.primary_role_id'],
-            // ])
+        return DataTableService::draw('pegawais')
+            ->where('deleted_at', null)
             ->addColumn('status', function ($detail) {
                 $badgeClass = $detail->is_active ? 'bg-label-success' : 'bg-label-danger';
                 $badgeText = $detail->is_active ? 'Active' : 'Inactive';
@@ -182,7 +164,7 @@ class DefaultService
                     <a href="javascript:void(0);" class="btn btn-sm rounded-pill btn-icon dropdown-toggle hide-arrow show" data-bs-toggle="dropdown" aria-expanded="true"><i class="ti ti-dots-vertical ti-md"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end m-0" data-popper-placement="bottom-end">
                         <li>
-                            <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="editData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit Account</a>
+                            <a class="dropdown-item" href="javascript:void(0);" data-permision="user-update" onclick="editData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit</a>
                         </li>
                         <div class="dropdown-divider"></div>
                         <li>

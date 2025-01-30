@@ -1,19 +1,14 @@
 <?php
 
-namespace Modules\Pkl\Http\Controllers\Dummy;
+namespace Modules\Pkl\Http\Controllers\Data;
 
 use App\Http\Controllers\Controller;
 use App\Traits\ApiResponseTrait;
 use Exception;
 use Illuminate\Http\Request;
-use Modules\Pkl\Services\Dummy\DefaultService;
+use Modules\Pkl\Services\Data\PegawaiService;
 
-/**
- * DefaultController
- * 
- * Controller untuk menangani operasi CRUD dan manajemen data utama.
- */
-class DefaultController extends Controller
+class PegawaiController extends Controller
 {
     use ApiResponseTrait;
     /**
@@ -27,7 +22,7 @@ class DefaultController extends Controller
      *
      * @param DefaultService $mainServices Service untuk operasi utama.
      */
-    public function __construct(DefaultService $mainServices)
+    public function __construct(PegawaiService $mainServices)
     {
         $this->mainServices = $mainServices;
     }
@@ -69,6 +64,19 @@ class DefaultController extends Controller
         }
     }
 
+    public function status(Request $request)
+    {
+        try {
+            $id = $request->input('id');
+            $aArrInput = $request->input('data');
+            $aArrUpdate = $this->mainServices->status($id, $aArrInput);
+            return $this->apiResponse($aArrUpdate)
+                ->send();
+        } catch (\Throwable $th) {
+            throw new Exception('Internal server malfunction.');
+        }
+    }
+
     /**
      * Menghapus data berdasarkan ID.
      *
@@ -82,19 +90,6 @@ class DefaultController extends Controller
             $id = $request->input('id');
             $aArrDelete = $this->mainServices->delete($id);
             return $this->apiResponse($aArrDelete)
-                ->send();
-        } catch (\Throwable $th) {
-            throw new Exception('Internal server malfunction.');
-        }
-    }
-
-    public function status(Request $request)
-    {
-        try {
-            $id = $request->input('id');
-            $aArrInput = $request->input('data');
-            $aArrUpdate = $this->mainServices->status($id, $aArrInput);
-            return $this->apiResponse($aArrUpdate)
                 ->send();
         } catch (\Throwable $th) {
             throw new Exception('Internal server malfunction.');

@@ -12,13 +12,15 @@ class Pegawai extends Model
 
     protected $fillable = [
         'nip',
-        'nama',
-        'jenis_kelamin',
+        'name',
+        'jk',
         'jabatan',
         'departemen',
         'telepon',
         'alamat',
         'tanggal_lahir',
         'email',
+        'user_id',
+        'is_active',
     ];
 }

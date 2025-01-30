@@ -468,6 +468,22 @@ var APP = ((config) => {
     };
 })({ defaultOption: true }); // Mengirimkan objek config saat IIFE dipanggil
 
+getInitials = (name) => {
+    // Pecah nama berdasarkan spasi
+    let words = name.trim().split(/\s+/); 
+    
+    // Jika hanya ada satu kata, gunakan huruf pertama dari kata tersebut
+    if (words.length === 1) {
+        return words[0].charAt(0).toUpperCase();
+    }
+    
+    // Ambil dua nama depan pertama dan buat inisialnya
+    let initials = words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
+    
+    return initials;
+}
+
+
 class Queue {
     constructor() {
         this.queue = [];

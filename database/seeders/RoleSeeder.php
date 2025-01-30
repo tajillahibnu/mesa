@@ -19,5 +19,7 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'Siswa', 'slug' => 'siswa', 'description' => 'View academic information']);
         Role::create(['name' => 'Orang Tua', 'slug' => 'orang_tua', 'description' => 'Monitor student progress']);
         Role::create(['name' => 'Staff TU', 'slug' => 'staff_tu', 'description' => 'Manage administrative documents']);
+        Role::create(['name' => 'Staff', 'slug' => 'staff', 'description' => 'Manage administrative documents']);
+        Role::create(['name' => 'Karyawan', 'slug' => 'karyawan', 'description' => 'Manage administrative documents']);
     }
 }
