@@ -30,6 +30,7 @@ Route::group(['prefix' => 'pkl', 'middleware' => ['web', 'auth']], function () {
 
     Route::group(['prefix' => 'data'], function () {
         require_once(__DIR__ . '/api/data/Pegawai.php');
+        require_once(__DIR__ . '/api/data/Siswa.php');
     });
 
     Route::group(['prefix' => 'management'], function () {

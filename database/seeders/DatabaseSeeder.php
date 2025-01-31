@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Jurusan;
 use App\Models\Role;
 use App\Models\Rombel;
+use App\Models\Siswa;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
             JurusanSeeder::class,
             RombelSeeder::class,
             DudiSeeder::class,
+            SiswaSeeder::class,
         ]);
         // User::factory()->create([
         //     'name' => 'Test User',
@@ -67,7 +69,7 @@ class DatabaseSeeder extends Seeder
         });
 
         // Buat siswa
-        User::factory()->siswa()->count(10)->create();
+        // User::factory()->siswa()->count(10)->create();
 
         // Buat karyawan
         // User::factory()->karyawan()->count(10)->create();

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('telepon', 15)->nullable();
             $table->text('alamat')->nullable();
             $table->date('tanggal_lahir');
-            $table->string('email', 100)->unique();
+            $table->string('email', 150)->unique();
             $table->enum('status_kepegawaian', ['PNS', 'Honorer'])->default('PNS');
             $table->enum('jabatan', ['Guru', 'Staff TU','Staff', 'Kepala Sekolah', 'Wakil Kepala'])->default('Guru');
             $table->boolean('is_active')->default(false);

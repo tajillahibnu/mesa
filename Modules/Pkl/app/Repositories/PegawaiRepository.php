@@ -26,12 +26,13 @@ class PegawaiRepository extends BaseRepository
             // Generate username unik
             $username = $this->generateUniqueUsername($pegawai->nama);
 
+            $pass = $pegawai->nip??'password123';
             // Buat user secara otomatis
             $user = User::create([
                 'name'       => $pegawai->name,
                 'username'   => $username, // Gunakan username yang sudah dibuat
                 'email'      => $pegawai->email,
-                'password'   => Hash::make('password123'), // Bisa pakai default password atau dari request
+                'password'   => Hash::make($pass), // Bisa pakai default password atau dari request
                 'biodata_id' => $pegawai->id,
                 'is_siswa'          => false,
                 'primary_role_id'   => $pegawai->jabatan == 'Staff' ? 3 : 7,

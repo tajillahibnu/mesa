@@ -23,7 +23,7 @@ class RombelFactory extends Factory
             // 'jurusan_id' => 1, // Update sesuai kebutuhan relasi
             // 'tingkat' => $this->faker->numberBetween(10, 12),
             // 'tingkat' => $this->faker->numberBetween(10, 12),
-            'kapasitas' => $this->faker->numberBetween(29, 33),
+            'kapasitas' => $this->faker->numberBetween(2, 5),
             'tahun_ajaran' => '2024/2025',
         ];
 
