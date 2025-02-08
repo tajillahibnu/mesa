@@ -6,6 +6,7 @@ use App\Models\Jurusan;
 use App\Models\Role;
 use App\Models\Rombel;
 use App\Models\Siswa;
+use App\Models\StatusKelas;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             MenuSeeder::class,
             PegawaiSeeder::class,
+            StatusKelasSeeder::class,
         ]);
         
         $this->create_user();

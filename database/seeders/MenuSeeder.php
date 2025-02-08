@@ -86,6 +86,20 @@ class MenuSeeder extends Seeder
         $save['view_path']      = 'data/siswa/';
         $save['view_file']      = 'default';
         Menu::create($save);
+
+        $dd = $dd + 1;
+        $save['id']         = $id.$dd;
+        $save['parent_id']  = $id;
+        $save['title']      = 'Kelas';
+        $save['name']       = 'Kelas';
+        $save['slug']       = 'dakel';
+        $save['url']        = 'data/dakel';
+        $save['level']      = '1';
+        $save['type']       = 'main';
+        $save['menu_order'] = $dd;
+        $save['view_path']      = 'data/kelas/';
+        $save['view_file']      = 'default';
+        Menu::create($save);
     }
 
     private function master($id,$menuNumber){

@@ -24,9 +24,9 @@ class SiswaSeeder extends Seeder
         foreach ($jurusanList as $namaJurusan => $jurusanId) {
             $this->command->info("Menambahkan siswa untuk jurusan: $namaJurusan");
 
-            $this->seedSiswa(10, '10', $jurusanId);
-            $this->seedSiswa(10, '11', $jurusanId);
-            $this->seedSiswa(10, '12', $jurusanId);
+            $this->seedSiswa(20, '10', $jurusanId);
+            $this->seedSiswa(20, '11', $jurusanId);
+            $this->seedSiswa(20, '12', $jurusanId);
         }
     }
 

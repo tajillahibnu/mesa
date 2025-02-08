@@ -22,7 +22,7 @@ class DataTableService
     protected $dataTable;
     protected $showQueries = false; // Flag to control whether to include query logs in the response.
     protected $rawColumns = []; // Tambahkan properti untuk raw columns
-    
+
     /**
      * Initialize the DataTableService with a specified table.
      *
@@ -71,9 +71,13 @@ class DataTableService
      * @param mixed $value
      * @return $this
      */
-    public function where($column, $operator = null, $value = null)
+    public function where($column, $operator = null, $value = null, $callback = null)
     {
-        if (is_array($value)) {
+        if ($callback instanceof \Closure) {
+            $this->query->when(true, function ($query) use ($callback) {
+                $callback($query);
+            });
+        } elseif (is_array($value)) {
             switch (strtoupper($operator)) {
                 case 'IN':
                     $this->query->whereIn($column, $value);

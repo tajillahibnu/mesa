@@ -30,4 +30,7 @@ Route::group(['prefix' => 'pkl', 'middleware' => ['guest', 'AppMetaPkl']], funct
 Route::group(['prefix' => 'auth'], function () {
     Route::get('logout', [MemberController::class, 'logout'])->name('auth.logout');
     Route::post('do_login', [MemberController::class, 'do_login'])->name('auth.do_login');
+    Route::get('do_login', function () {
+        return redirect('pkl');
+    });
 });
