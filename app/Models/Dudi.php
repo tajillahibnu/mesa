@@ -11,16 +11,18 @@ class Dudi extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name',
-        'address',
-        'phone',
-        'email',
-        'description',
-        'website',
-        'is_active',
-        'latitude',
-        'longitude',
+        'name', 'address', 'phone', 'email', 'website',
+        'latitude', 'longitude',
+        'pic_name', 'pic_phone',
+        'quota', 'sector', 'partnership_status', 
+        'description', 'requirements', 
+        'is_active'
     ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
     /**
      * Relasi dengan DudiRule
      */

@@ -15,13 +15,26 @@ return new class extends Migration
             $table->id();
             $table->string('name'); // Nama DUDI
             $table->string('address'); // Alamat
-            $table->string('phone')->nullable(); // Nomor Telepon
-            $table->string('email')->unique()->nullable(); // Email
-            $table->text('description')->nullable(); // Deskripsi DUDI
+            $table->string('phone')->nullable(); // Nomor Telepon Kantor
+            $table->string('email')->unique()->nullable(); // Email DUDI
             $table->string('website')->nullable(); // Situs web DUDI
-            $table->decimal('latitude', 10, 8)->nullable(); // Koordinat Latitude
-            $table->decimal('longitude', 11, 8)->nullable(); // Koordinat Longitude
-            $table->boolean('is_active')->default(false);
+
+            // Koordinat Lokasi
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
+
+            // PIC (Penanggung Jawab di DUDI)
+            $table->string('pic_name')->nullable(); // Nama PIC
+            $table->string('pic_phone')->nullable(); // Kontak PIC
+
+            // Informasi Tambahan
+            $table->integer('quota')->default(0); // Kuota siswa PKL
+            $table->string('sector')->nullable(); // Sektor industri
+            $table->string('partnership_status')->default('Belum Ada MoU'); // Status kerja sama
+            $table->text('description')->nullable(); // Deskripsi DUDI
+            $table->text('requirements')->nullable(); // Persyaratan siswa PKL
+            
+            $table->boolean('is_active')->default(false); // Status aktif/tidak
             $table->timestamps();
             $table->softDeletes();
         });

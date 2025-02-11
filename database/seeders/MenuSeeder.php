@@ -16,6 +16,7 @@ class MenuSeeder extends Seeder
         $aArrMenu = [
             'dashboard',
             'data',
+            'pkl',
             'master',
             'management',
             'setting',
@@ -44,8 +45,6 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
     }
-
-    
 
     private function data($id,$menuNumber){
         $dd = $id;
@@ -98,6 +97,61 @@ class MenuSeeder extends Seeder
         $save['type']       = 'main';
         $save['menu_order'] = $dd;
         $save['view_path']      = 'data/kelas/';
+        $save['view_file']      = 'default';
+        Menu::create($save);
+    }
+
+    private function pkl($id,$menuNumber){
+        $dd = $id;
+        $save['id']    = $id;
+        $save['name']  = 'PKL';
+        $save['title']  = 'PKL';
+        $save['slug']   = 'pkl';
+        $save['url']   = 'pkl';
+        $save['level'] = '0';
+        $save['type']  = 'main';
+        $save['menu_order'] = $menuNumber;
+        Menu::create($save);
+
+        $dd = $dd + 1;
+        $save['id']         = $id.$dd;
+        $save['parent_id']  = $id;
+        $save['title']      = 'Periode';
+        $save['name']       = 'Periode';
+        $save['slug']       = 'pklpriode';
+        $save['url']        = 'pkl/priode';
+        $save['level']      = '1';
+        $save['type']       = 'main';
+        $save['menu_order'] = $dd;
+        $save['view_path']      = 'pkl/priode/';
+        $save['view_file']      = 'default';
+        Menu::create($save);
+
+        $dd = $dd + 1;
+        $save['id']         = $id.$dd;
+        $save['parent_id']  = $id;
+        $save['title']      = 'Pendaftaran';
+        $save['name']       = 'Pendaftaran PKL';
+        $save['slug']       = 'pendaftaranpkl';
+        $save['url']        = 'pkl/pendaftaran';
+        $save['level']      = '1';
+        $save['type']       = 'main';
+        $save['menu_order'] = $dd;
+        $save['view_path']      = 'pkl/pendaftaran/';
+        $save['view_file']      = 'default';
+        Menu::create($save);
+
+        $dd = $dd + 1;
+        $save['id']         = $id.$dd;
+        $save['parent_id']  = $id;
+        $save['title']      = 'Konfirmasi';
+        $save['name']       = 'Konfirmasi';
+        $save['slug']       = 'konfirmasipkl';
+        $save['url']        = 'pkl/konfirmasi';
+        $save['level']      = '1';
+        $save['type']       = 'main';
+        $save['menu_order'] = $dd;
+        $save['view_path']      = 'pkl/konfirmasi/';
         $save['view_file']      = 'default';
         Menu::create($save);
     }
