@@ -13,7 +13,7 @@
                             <input class="form-control" id="name" name="name" type="text" placeholder="Nama Lengkap Siswa" required="">
                         </div>
                         <div class="col-12 mb-4">
-                            <label class="form-label" for="tahun_ajaran">Tingkat</label>
+                            <label class="form-label" for="tahun_ajaran">Tahun Pelajaran</label>
                             <select id="tahun_ajaran" name="tahun_ajaran" class="select2 form-select" data-placeholder="Select Tingkat"></select>
                         </div>
                         <div class="col-12 mb-4">

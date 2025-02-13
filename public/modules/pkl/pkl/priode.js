@@ -47,7 +47,7 @@ mainTable = () => {
                 render: function (data, type, full, meta) {
                     return `
                     <div class="d-flex flex-column">
-                        <span>Mulai : ${full['name']}</span>
+                        <span>${full['name']}</span>
                         <small>Registrasi : ${moment(full['batas_registrasi']).format("DD-MM-Y")}</small>
                     </div>
                     `
