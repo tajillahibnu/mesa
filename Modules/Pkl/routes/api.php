@@ -19,7 +19,7 @@ use Modules\Pkl\Http\Controllers\PklController;
 //     Route::apiResource('pkl', PklController::class)->names('pkl');
 // });
 
-Route::group(['prefix' => 'pkl', 'middleware' => ['web', 'auth','PageAccess']], function () {
+Route::group(['prefix' => 'pkl', 'middleware' => ['web', 'auth', 'PageAccess']], function () {
     Route::post('load-page', [MenuPageController::class, 'getMenuPage'])->name('load-page');
 });
 
@@ -43,5 +43,9 @@ Route::group(['prefix' => 'pkl', 'middleware' => ['web', 'auth']], function () {
         require_once(__DIR__ . '/api/master/Dudi.php');
         require_once(__DIR__ . '/api/master/Jurusan.php');
         require_once(__DIR__ . '/api/master/Rombel.php');
+    });
+
+    Route::group(['prefix' => 'pkl'], function () {
+        require_once(__DIR__ . '/api/pkl/Priode.php');
     });
 });
