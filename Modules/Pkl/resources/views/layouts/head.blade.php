@@ -49,6 +49,8 @@
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/sweetalert2/sweetalert2.css" />
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/toastr/toastr.css" />
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css" />
+    <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css" />
     <!-- Row Group CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
     <!-- Form Validation -->
